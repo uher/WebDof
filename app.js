@@ -1,4 +1,6 @@
 
+var port = 80;
+// var port = 3000;
 
 var express = require('express')
 var path = require('path')
@@ -17,9 +19,6 @@ client.invoke("send", "Test message from Node.js", function(error, res, more) {
     console.log(res);
 });
 
-
-// var port = 3000;
-var port = 80;
 
 // view engine
 app.set('view engine', 'jade')
@@ -86,10 +85,19 @@ app.get('/track/:feedback/:trackId', function(req, res) {
 
 });
 
+app.get('/reload', function (req, res) {
+
+    var moduleName = 'NewEngine';
+    var fileName = 'python/engine1.py';
+    
+    client.invoke("reloadEngine", moduleName, fileName, function(error, response, more) {
+        console.log('Engin loaded. version : ' + response);
+        res.send(response);
+    });
+
+});
 
 app.set('port', process.env.PORT || port);
-
-console.log("process port : " + process.env.PORT)
 
 app.listen(port, '0.0.0.0', function () {
   console.log('App listening on port: ' + port);

@@ -146,11 +146,34 @@ function onClickedNeutral() {
     sendFeedback("neutral", g_trackId);
 }
 
+function onClickedReload() {
+
+    console.log("onClicked reload");
+
+    sendUrl = window.location.origin + "/reload";
+
+    $.ajax({
+        url: sendUrl,
+        type: 'GET',
+        success: function (response) {
+
+            console.log("response: " + response);
+
+        },
+        error: function (response) {
+            console.log('error in reload');
+        },
+    }).done(function (data) {
+        console.log('reload complented');
+    });
+}
+
 function addClickListener() {
     d.getElementById('btn-gettrack').addEventListener('click', onClickedGetTrack);
     d.getElementById('btn-like').addEventListener('click', onClickedLike);
     d.getElementById('btn-dislike').addEventListener('click', onClickedDislike);
     d.getElementById('btn-neutral').addEventListener('click', onClickedNeutral);
+    d.getElementById('btn-reload').addEventListener('click', onClickedReload);
 }
 
 // App start.

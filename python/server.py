@@ -3,6 +3,8 @@ from engine import BMEngine
 # from engine_sample import BMEngine
 
 import logging
+import imp
+import os
 
 logging.basicConfig()
 
@@ -26,6 +28,23 @@ class ListenerRPC(object):
         # print('receivedFeedback. message: ' + message)
         msg = bmEngine.receiveFeedback(feedback, trackId)
         return msg
+
+    def reloadEngine(self, moduleName, fileName):
+
+        print('Current path : ' + os.getcwd())
+
+        try:
+            newModule = imp.load_source(moduleName, fileName)
+            bmEngine = newModule.NewEngine()
+        except Exception:
+            print("Input Error. moduleName: " + moduleName + ", fileName: " + fileName)
+            return '-0.1'
+        
+        print('Succeed reload engine! Version : ' + bmEngine.version)
+        
+        return bmEngine.version
+
+
 
 s = zerorpc.Server(ListenerRPC())
 

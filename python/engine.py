@@ -2,8 +2,12 @@ import sys, json, time
 
 class BMEngine:
 
+    version = "0.0"
+    checkCode = "first"
+
     def __init__(self):
         print("Engine initialized")
+        self.version = "0.0"
 
     # TODO: keunwoo
     def getTrack(self):
@@ -24,7 +28,8 @@ class BMEngine:
         print('dislike track: ' + trackId)
         return 'processed dislike : ' + trackId
 
-
+    def printTest(self):
+        print('checkCode : ' + self.checkCode)
 
 
     def receiveFeedback(self, feedback, trackId):
@@ -61,7 +66,7 @@ def receiveFeedback(feedback, trackId):
 
     if feedback == "like":
         #like trackId;
-        message = "succeed like"
+        mesenginesage = "succeed like"
     elif feedback == "dislike":
         #dislike
         message = "succeed dislike"
