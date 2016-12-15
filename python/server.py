@@ -2,6 +2,10 @@ import zerorpc
 from engine import BMEngine
 # from engine_sample import BMEngine
 
+import logging
+
+logging.basicConfig()
+
 bmEngine = BMEngine()
 
 class ListenerRPC(object):
@@ -24,10 +28,20 @@ class ListenerRPC(object):
         return msg
 
 s = zerorpc.Server(ListenerRPC())
+
+
+#s.bind("tcp://0.0.0.0:8080")
 s.bind("tcp://0.0.0.0:4242")
 
+
+#s.bind("tcp://127.0.0.1:4242")
+
 print("python server is running")
-s.run()
+try:
+    s.run();
+except Exception, e:
+    print ('Exception error: ' + e);
+
 
 
 # class HelloRPC(object):

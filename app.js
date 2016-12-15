@@ -7,14 +7,19 @@ var app = express()
 var zerorpc = require("zerorpc");
 
 var client = new zerorpc.Client();
+//client.connect('tcp://0.0.0.0:4242');
+
+
 client.connect("tcp://127.0.0.1:4242");
+//client.connect("tcp://127.0.0.1:8080");
 
 client.invoke("send", "Test message from Node.js", function(error, res, more) {
     console.log(res);
 });
 
 
-var port = 3000;
+// var port = 3000;
+var port = 80;
 
 // view engine
 app.set('view engine', 'jade')
@@ -82,6 +87,10 @@ app.get('/track/:feedback/:trackId', function(req, res) {
 });
 
 
-app.listen(port, function () {
+app.set('port', process.env.PORT || port);
+
+console.log("process port : " + process.env.PORT)
+
+app.listen(port, '0.0.0.0', function () {
   console.log('App listening on port: ' + port);
 })
